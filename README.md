@@ -43,7 +43,9 @@ Windows : Install on <a href="https://nodejs.org">nodejs.org</a>
   
   
 💚 Delete track
-
+  
+💚 Copy track path
+  
 💚 Computer files (mp3, wav, ogg, ...)
 
 💚 Ayo i made this cool looking app
