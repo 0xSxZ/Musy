@@ -23,13 +23,8 @@ This project uses NodeJS/Electron
 
 Windows : Install on <a href="https://nodejs.org">nodejs.org</a>
 <!-- Installation -->
-### :gear: Installation
-
-Install requirement with NodeJs and NPM
-
-  
-`npm i`
-
+### :gear: Fast Installation
+<a href="https://github.com/0xSxZ/Musy/releases">Releases</a>
 <!-- Features -->
 ## :dart: Features
 
