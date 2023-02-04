@@ -5,7 +5,7 @@
   <p>
     A concurrent app to Windows Groove
   </p>
-  
+  <img src="https://i.imgur.com/ctlVo8y.png">
 
 
 <!-- About the Project -->
