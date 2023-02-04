@@ -1,0 +1,362 @@
+
+<html lang="en"><head>
+  <script>if (typeof module === 'object') {window.module = module; module = undefined;}</script>
+
+  <meta charset="UTF-8">
+
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <title>Musy</title>
+  
+  <link rel="stylesheet" href="../css/index.css">
+  <link rel="stylesheet" media="screen" href="../css/boot.css">
+  
+  <script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js'></script>
+  
+  <script src="../scripts/index.js"></script>
+
+  <meta name="apple-mobile-web-app-title" content="CodePen">
+
+  <script>
+  if (document.location.search.match(/type=embed/gi)) {
+    window.parent.postMessage("resize", "*");
+  }
+</script>
+
+  <script>
+    var path = require("path")
+    function sleep(ms) {
+    return new Promise(resolve => setTimeout(resolve, ms));
+}
+
+
+function copyToClipboard(text) {
+    // Get the text field
+    var copyText = text;
+  
+    navigator.clipboard.writeText(copyText).then(function() {
+      alert("Link copied to clipboard: " + copyText);
+    });
+
+}
+    function search(query){
+       var path = require("path")
+      const musicbar = document.querySelector(".music");
+      const musicname = document.querySelector(".musicname");
+      const artis = document.querySelector(".artist");
+      const img = document.querySelector(".cover");
+      const imgs = document.querySelector(".shadow");
+      const rote = document.querySelector(".cover");
+      const playBtn = document.querySelector(".play-btn");
+      const pauseBtn = document.querySelector(".pause-btn");
+      const preBtn = document.querySelector(".prev-btn");
+      const nextBtn = document.querySelector(".next-btn");
+      const music = document.getElementById("music");
+      const progressBar = document.getElementById("progress-bar");
+      let currentTrack = 0;
+      let currentList;
+      query = query.toLowerCase();
+      console.log(query)
+      var fs = require("fs")
+      document.getElementById("musiclist").innerHTML = "<form class='container6' onsubmit='search(" + 'document.getElementById("searchInput").value'+ ")'><input type='text' id='searchInput' placeholder='Search..'></form><br><br><div id='progressbar'></div>";
+      let data = fs.readFileSync(path.join(__dirname, '.', '../db/db.json'),{encoding:'utf8', flag:'r'})
+      let tracks = JSON.parse('['+data+']')
+      
+      for (let i = 0; i < tracks.length; i++) {
+          if(tracks[i]["name"].toLowerCase().includes(query) || tracks[i]["artist"].toString().toLowerCase().includes(query)){
+            $("#musiclist")
+              .append(`<li id="${i}"><div class="box" ><div class="icon"><img src="${tracks[i].image}"/></div>
+              <div class="content">
+            <svg viewBox="0 0 448 448" onclick="remove(this)" cust="${tracks[i].url}">
+            <path d="m408 184h-136c-4.417969 0-8-3.582031-8-8v-136c0-22.089844-17.910156-40-40-40s-40 17.910156-40 40v136c0 4.417969-3.582031 8-8 8h-136c-22.089844 0-40 17.910156-40 40s17.910156 40 40 40h136c4.417969 0 8 3.582031 8 8v136c0 22.089844 17.910156 40 40 40s40-17.910156 40-40v-136c0-4.417969 3.582031-8 8-8h136c22.089844 0 40-17.910156 40-40s-17.910156-40-40-40zm0 0"/>
+            </svg>
+            
+            <h3>${tracks[i].name.slice(0,15)}...</h3>
+            <h6>${tracks[i].artist}</h6><div></div>
+            <i class="far fa-copy" onclick="copyToClipboard('${tracks[i].url}')"></i>
+            </li>`);
+        }else{}
+      }
+      const musicList = document.getElementsByTagName("li");
+      for (let musicIndex = 0; musicIndex < musicList.length; musicIndex++) {
+        musicList[musicIndex].addEventListener("click", switchMusic, false);
+      }
+
+      function switchMusic(e) {
+        
+      if (currentList !== undefined) {
+        removePlayedBackground();
+        music.pause();
+      }
+      
+        currentTrack = this.id;
+        music.src = tracks[currentTrack].url;
+        music.load();
+        play();
+      }
+  
+  function addChoosedBackground() {
+    currentList = document.getElementById(currentTrack);
+    currentList.classList.add("song-play-now");
+  }
+  
+  function removePlayedBackground() {
+    currentList.classList.remove("song-play-now");
+  }
+  
+  async function play() {
+    await sleep(1000)
+    img.src = tracks[currentTrack].image;
+    imgs.src = tracks[currentTrack].image;
+    artis.innerHTML = tracks[currentTrack].artist;
+    musicname.innerHTML = tracks[currentTrack].name.slice(0,25);
+    rote.classList.add("rote");
+    playBtn.classList.add("hidden");
+    pauseBtn.classList.remove("hidden");
+    musicbar.classList.add("openn");
+    music.play();
+    musicIsPlaying = true;
+    addChoosedBackground();
+    document.getElementById("end-time").innerHTML = tracks[currentTrack].duration;
+  }
+  
+  function pause() {
+    rote.classList.remove("rote");
+    pauseBtn.classList.add("hidden");
+    playBtn.classList.remove("hidden");
+  
+    musicIsPlaying = false;
+    music.pause();
+  }
+  
+  function prePlay() {
+    
+    removePlayedBackground();
+    music.pause();
+  
+    if (currentTrack > 0) {
+      currentTrack--;
+    } else {
+      currentTrack = tracks.length - 1;
+    }
+  
+    music.src = tracks[currentTrack].url;
+    music.load();
+    play();
+  }
+  
+  function nextPlay() {
+    removePlayedBackground();
+    music.pause();
+  
+    if (currentTrack < tracks.length - 1) {
+      currentTrack++;
+    } else {
+      currentTrack = 0;
+    }
+  
+    music.src = tracks[currentTrack].url;
+    music.load();
+    play();
+  }
+  
+  function calculateTotalValue(length) {
+    let minutes = Math.floor(length / 60),
+      seconds_int = length - minutes * 60,
+      seconds_str = seconds_int.toString(),
+      seconds = seconds_str.substr(0, 2),
+      time = minutes + ":" + seconds;
+  
+    return time;
+  }
+  
+  function formatTime() {
+    let timeline = document.getElementById("start-time");
+    let s = parseInt(music.currentTime % 60);
+    let m = parseInt((music.currentTime / 60) % 60);
+    if (s < 10) {
+      timeline.innerHTML = m + ":0" + s;
+    } else {
+      timeline.innerHTML = m + ":" + s;
+    }
+  }
+  
+  function updateProgress() {
+    let current = music.currentTime;
+    let percent = (current / music.duration) * 100;
+    progressBar.setAttribute("value", percent);
+  }
+  
+  playBtn.addEventListener("click", play, false);
+  pauseBtn.addEventListener("click", pause, false);
+  preBtn.addEventListener("click", prePlay, false);
+  nextBtn.addEventListener("click", nextPlay, false);
+  music.addEventListener("ended", nextPlay, false);
+  
+  // 歌曲已播放時間
+  music.addEventListener("timeupdate", formatTime, false);
+  music.addEventListener("timeupdate", updateProgress, false);
+  
+    }
+
+    
+
+    
+  
+    function remove(e){
+      var path = require("path")
+      var fs = require("fs")
+      var pth = e.getAttribute("cust").replace(/\\/g,"\\\\")
+      var str = fs.readFileSync(path.join(__dirname, '.', '../db/db.json'),{encoding:'utf8', flag:'r'})
+      var sux = str.split('\n').filter(function(line){ 
+        return line.indexOf( pth) == -1;
+      }).join('\n')
+      if(sux.substring(0, 1) == ","){
+        fs.writeFileSync(path.join(__dirname, '.', '../db/db.json'), sux.slice(1));
+      }else{
+        fs.writeFileSync(path.join(__dirname, '.', '../db/db.json'), sux);
+      }
+      fs.writeFileSync(path.join(__dirname, '.', '../db/removed.json'), pth);
+      search("")
+    }  
+  </script>
+
+</head>
+
+<style>
+  .navWrapper {
+  -webkit-user-select: none;
+  -webkit-app-region: drag;
+  }
+
+</style>
+
+  <div class="container" style="box-shadow: inset 0px -10px 15px 1px #0000002e;">
+  <div class="head">
+    <nav>
+      <div class="navWrapper">
+        <a href="" id="logo">Musy</a>
+      </div>
+    </nav>
+  </div>
+
+  <page-home>
+
+    <div class="col-md-12 po" style="width:120%">
+      <div class="section-banner" style="width:130%">
+
+        <p class="section-banner-title">Music <br> For <br> Everyone</p>
+
+      </div>
+    </div>
+
+  </page-home>
+  <style>
+    .post__card-2 {
+      padding-right: .8rem;
+      padding-top: .5rem;
+      padding-bottom: .5rem;
+      max-width: 277.5px;
+      width: 100%;
+      float: left;
+    }
+
+    .post__card_-2 {
+      overflow: hidden;
+      border-radius: 0rem;
+      background-color: #fff;
+    }
+
+    .post__card__image-2 {
+      height: 11rem;
+      border-radius: 10px;
+      background-size: cover;
+      background-position: center;
+      box-shadow: 0 20px 25px -5px rgba(0, 0, 0, .1), 0 10px 10px -5px rgba(0, 0, 0, .04);
+    }
+
+    .post__card_meta-2 {
+      padding: 0.5em;
+    }
+
+    .post__card_title-2 {
+      font-size: 1.5rem;
+      font-weight: 700;
+      margin: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+    }
+
+    .post__card_alttitle-2 {
+      color: #4a5568;
+      margin: 0;
+      line-height: 1.5;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+      font-size: 1.125rem
+    }
+  </style>
+
+
+  <div class="col-md-6 mt-3 fl po" style="width: 100%;">
+
+    <ul id="musiclist" style="width: 100%; height: 100%; overflow: auto">
+      <form class='container6' onsubmit="search(document.getElementById('searchInput').value)">
+          <input type="text" id="searchInput" placeholder="Search..">
+        </form>
+      <br><br>
+      <div id="progressbar"></div></ul>
+
+  </div>
+
+  <br><br><br><br>
+
+
+<div class="music">
+  <div class="container">
+    <div id="abl" class="album">
+      <div class="circle"></div>
+      <img class="cover" />
+      <img class="shadow"></img>
+    </div>
+    <div class="musicname"></div>
+    <div class="artist"></div>
+
+    <div class="controll-panel">
+      <div class="center">
+        <span class="prev-btn controll-btn">
+          <i class="fas fa-step-backward"></i>
+        </span>
+      </div>
+      <div class="center">
+        <span class="play-btn controll-btn">
+          <i class="far fa-play-circle"></i>
+        </span>
+        <span class="pause-btn controll-btn hidden">
+          <i class="far fa-pause-circle"></i>
+        </span>
+      </div>
+      <div class="center">
+        <span class="next-btn controll-btn">
+          <i class="fas fa-step-forward"></i>
+        </span>
+      </div>
+    </div>
+    <div class="progress-panel">
+      <progress id="progress-bar" value="0" max="100"></progress>
+      <div class="time">
+        <label id="start-time">00:00</label>
+        <label>/</label>
+        <label id="end-time">00:00</label>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.1.0/css/all.css" integrity="sha384-lKuwvrZot6UHsBSfcMvOkWwlCMgc0TaWr+30HWe3a4ltaBwTZhyTEggF5tJv8tbt" crossorigin="anonymous"> <audio id="music">
+</audio>
+
+</div>
+
+
+</html>
