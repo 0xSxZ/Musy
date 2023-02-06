@@ -1,4 +1,205 @@
 
+  
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;800&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Urbanist:wght@500&display=swap");
+
+
+ul {
+  list-style: none;
+}
+
+body {
+  height: 100vh;
+  background: radial-gradient(circle, rgb(255, 255, 255) 70%, rgb(243, 243, 243) 100%);
+  position: relative;
+  overflow: hidden;
+  color: #ffffff;
+}
+
+.nav {
+  width: 100%;
+  height: 100px;
+  position: relative;
+  z-index: 1000;
+}
+.nav .trigger {
+  position: absolute;
+  top: 50%;
+  right: 24px;
+  transform: translate(0, -50%);
+  cursor: pointer;
+  display: inline-block;
+  width: 48px;
+  height: 30px;
+}
+.nav .trigger span {
+  position: relative;
+  width: 100%;
+  height: 6px;
+  transform: translateY(12px);
+  background-color: #292d34;
+  display: block;
+  border-radius: 9px;
+}
+.nav .trigger span::before, .nav .trigger span::after {
+  position: absolute;
+  content: "";
+  width: 100%;
+  height: 6px;
+  background-color: #292d34;
+  display: block;
+  border-radius: 9px;
+}
+.nav .trigger span::before {
+  transform: translateY(-12px);
+}
+.nav .trigger span::after {
+  transform: translateY(12px);
+}
+
+.trigger span {
+  transition: all 0.3s linear;
+}
+
+.trigger.active span {
+  background-color: transparent;
+}
+
+.trigger span:before {
+  animation: downAndTurnReverse 0.5s linear both;
+}
+
+.trigger.active span:before {
+  animation: downAndTurn 0.5s linear both;
+}
+
+.trigger span:after {
+  animation: upAndTurnReverse 0.5s linear both;
+}
+
+.trigger.active span:after {
+  animation: upAndTurn 0.5s linear both;
+}
+
+@keyframes downAndTurn {
+  0% {
+    transform: translateY(-12px) rotate(0deg);
+  }
+  50% {
+    transform: translateY(0px) rotate(0deg);
+  }
+  100% {
+    transform: translateY(0px) rotate(45deg);
+  }
+}
+@keyframes downAndTurnReverse {
+  0% {
+    transform: translateY(0) rotate(45deg);
+  }
+  50% {
+    transform: translateY(0px) rotate(0deg);
+  }
+  100% {
+    transform: translateY(-12px) rotate(0deg);
+  }
+}
+@keyframes upAndTurn {
+  0% {
+    transform: translateY(12px) rotate(0deg);
+  }
+  50% {
+    transform: translateY(0px) rotate(0deg);
+  }
+  100% {
+    transform: translateY(0px) rotate(-45deg);
+  }
+}
+@keyframes upAndTurnReverse {
+  0% {
+    transform: translateY(0px) rotate(-45deg);
+  }
+  50% {
+    transform: translateY(0px) rotate(0deg);
+  }
+  100% {
+    transform: translateY(12px) rotate(0deg);
+  }
+}
+.sidebar {
+  position: fixed;
+  top: 0;
+  right: 0;
+  width: 320px;
+  max-width: 85%;
+  height: 100%;
+  color: #ffffff;
+  z-index: 500;
+  background: #000000;
+  opacity: 90%;
+  transition: transform 0.5s;
+  transform: translateX(100%);
+  overflow-y: auto;
+  padding: 32px;
+  overflow-x: hidden;
+}
+@media (max-width: 320px) {
+  .sidebar {
+    padding: 24px;
+  }
+}
+.sidebar .logo {
+  font-size: 32px;
+  display: block;
+  margin-bottom: 48px;
+  position: relative;
+  top: -2px;
+  transition: all 1s ease-out;
+  transform: translateX(150px);
+}
+.sidebar .logo img {
+  max-width: 160px;
+  user-select: none;
+}
+@media (max-width: 320px) {
+  .sidebar .logo img {
+    max-width: 120px;
+  }
+}
+
+.sidebar .menu li {
+  font-size: 24px;
+  color: #ffffff;
+  cursor: pointer;
+  transform: translateX(150px);
+}
+@media (max-width: 320px) {
+  .sidebar .menu li {
+    font-size: 20px;
+  }
+}
+.sidebar .menu li:nth-of-type(1) {
+  transition: all 1.1s ease-out;
+}
+.sidebar .menu li:nth-of-type(2) {
+  transition: all 1.2s ease-out;
+}
+.sidebar .menu li:nth-of-type(3) {
+  transition: all 1.3s ease-out;
+}
+.sidebar .menu li:nth-of-type(4) {
+  transition: all 1.4s ease-out;
+}
+.sidebar.show {
+  transform: translateX(0);
+  box-shadow: -10px 0px 35px rgba(124, 130, 141, 0.3);
+}
+.sidebar.show .logo {
+  transform: translateX(0);
+}
+.sidebar.show .menu li {
+  transform: translateX(0);
+}
+
 ::-webkit-scrollbar{
 	width: 7px;
 }
@@ -35,6 +236,44 @@ input:focus {
 
 #searchInput {
 	padding: 20px;
+	height: 40px;
+	width: 100%;
+	border: 1px solid #000;
+	border-radius: 30px;
+	font-size: 16px;
+	background-color: #1f1f1f;
+	color: white;
+	background-repeat: no-repeat;
+	-webkit-transition: width 0.8s ease-in-out;
+	transition: width 0.8s ease-in-out;
+	outline: none;
+	opacity: 0.9;
+}
+
+
+
+
+#searchInputt {
+	padding: 20px;
+	height: 40px;
+	width: 100%;
+	border: 1px solid #000;
+	border-radius: 30px;
+	font-size: 16px;
+	background-color: #1f1f1f;
+	color: white;
+	background-repeat: no-repeat;
+	-webkit-transition: width 0.8s ease-in-out;
+	transition: width 0.8s ease-in-out;
+	outline: none;
+	opacity: 0.9;
+}
+
+
+
+
+
+#searchBtn{
 	height: 40px;
 	width: 100%;
 	border: 1px solid #000;
@@ -102,7 +341,7 @@ input:focus {
 	font-size: 20px;
 	font-family: -apple-system,BlinkMacSystemFont,&quot;Segoe UI&quot;,Roboto,&quot;Helvetica Neue&quot;,Arial,&quot;Noto Sans&quot;,sans-serif,&quot;Apple Color Emoji&quot;,&quot;Segoe UI Emoji&quot;,&quot;Segoe UI Symbol&quot;,&quot;Noto Color Emoji&quot;;
 	font-weight: bold;
-	color: #3e3f5e;
+	color: #e3e3e3;
 	margin: 0px;
 	line-height: 27px;
 	position: relative;
@@ -136,10 +375,11 @@ ul{
 	list-style: none;
 }
 .music{
+	color: #000000;
 	position: fixed;
 	width: 100%;
 	height: 4em;
-	background: #f3f3f3;
+	background: #212121;
 	bottom: 0;
 }
 progress{
@@ -172,17 +412,17 @@ progress{
 	top: 36px;
 }
 progress::-webkit-progress-value {
-	background: #0d9dfc;
+	background: #7db0e3;
 }
 progress::-moz-progress-bar {
-	background: #2070fa;
+	background: #ffffff;
 	border-radius: 10px;
 }
 progress::-webkit-progress-value {
-	background: #fc0d4d;
+	background:	#7db0e3;
 }
 progress::-webkit-progress-bar {
-	background: #2070fa;
+	background: #ffffff;
 	border-radius: 10px;
 }
 .controll-panel{
@@ -315,14 +555,14 @@ main{
 	margin: 9px;
 	display: flex;
 	align-items: center;
-	background: #fff;
+	background: #1f1f1f;
 	border-radius: 30px;
 	padding: -1px;
 	transition: transform .2s ease-in-out;
 	cursor: pointer;
 }
 .box:hover {
-	background: white;
+	background: #454545;
 	box-shadow: 0 -10px 30px #13010121;
 }
 .box div.icon {
@@ -337,14 +577,14 @@ main{
 	font-size: 22px;
 	font-family: -apple-system,BlinkMacSystemFont,&quot;Segoe UI&quot;,Roboto,&quot;Helvetica Neue&quot;,Arial,&quot;Noto Sans&quot;,sans-serif,&quot;Apple Color Emoji&quot;,&quot;Segoe UI Emoji&quot;,&quot;Segoe UI Symbol&quot;,&quot;Noto Color Emoji&quot;;
 	font-weight: bold;
-	color: #3e3f5e;
+	color: #e8e8e8;
 	margin: 0px;
 	line-height: 27px;
 }
 .box div.content h6 {
 	font-size: 16px;
 	font-weight: 400;
-	color: #4a5568;
+	color: #c7c7c7;
 	margin: 0px;
 	line-height: 18px;
 	font-family: -apple-system,BlinkMacSystemFont,&quot;Segoe UI&quot;,Roboto,&quot;Helvetica Neue&quot;,Arial,&quot;Noto Sans&quot;,sans-serif,&quot;Apple Color Emoji&quot;,&quot;Segoe UI Emoji&quot;,&quot;Segoe UI Symbol&quot;,&quot;Noto Color Emoji&quot;;
@@ -353,7 +593,7 @@ main{
 	font-size: 15px;
 	font-family: -apple-system,BlinkMacSystemFont,&quot;Segoe UI&quot;,Roboto,&quot;Helvetica Neue&quot;,Arial,&quot;Noto Sans&quot;,sans-serif,&quot;Apple Color Emoji&quot;,&quot;Segoe UI Emoji&quot;,&quot;Segoe UI Symbol&quot;,&quot;Noto Color Emoji&quot;;
 	font-weight: 400;
-	color: #707070;
+	color: #c7c7c7;
 	margin: 0px;
 	line-height: 45px;
 	padding-right: 15px;
@@ -408,6 +648,7 @@ main{
 	font-display:swap
 }
 body{
+	background: #0d0e11;
 	color:#000;
 	font-family:Gilroy-Medium,Helvetica,Arial,sans-serif;
 	font-weight:400;
@@ -422,6 +663,8 @@ body{
 	background: url(../img/acc.png) no-repeat 1%;
 	position: relative;
 	margin: 0 auto;
+	box-shadow: 0 0 8px 20px #0d0e11 inset;
+
 }
 .section-banner .section-banner-icon {
 	position: absolute;
@@ -523,9 +766,10 @@ h1::-moz-selection {
 	flex-direction: column;
 }
 nav {
+	color: white;
 	width: 100vw;
 	height: 100px;
-	background: white;
+	background: #0d0e11;
 	position: absolute;
 	top: 0;
 }
@@ -548,7 +792,9 @@ nav {
 	padding-top: 24px;
 }
 #logo {
-	color: #292929;
+	color: #f2f2f2;
+	font-family: sans-serif;
+	font-weight: bold;
 	font-size: 30px;
 	font-weight: normal;
 	text-decoration: none;

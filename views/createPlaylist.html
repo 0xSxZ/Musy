@@ -1,19 +1,20 @@
 
 <html lang="en"><head>
   <script>if (typeof module === 'object') {window.module = module; module = undefined;}</script>
+  
+    <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
   <meta charset="UTF-8">
 
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
   <title>Musy</title>
-  
+  <script type="text/javascript" src="../scripts/playlistsCr.js"></script>
   <link rel="stylesheet" href="../css/index.css">
   <link rel="stylesheet" media="screen" href="../css/boot.css">
   
   <script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js'></script>
-  
-  <script src="../scripts/index.js"></script>
+
   <meta name="apple-mobile-web-app-title" content="CodePen">
 
   <script>
@@ -22,22 +23,23 @@
   }
 </script>
 
+  
   <script>
     var path = require("path")
     function sleep(ms) {
-    return new Promise(resolve => setTimeout(resolve, ms));
-}
+      return new Promise(resolve => setTimeout(resolve, ms));
+    }
 
 
-function copyToClipboard(text) {
-    // Get the text field
-    var copyText = text.replace("\\", "\\\\");
-  
-    navigator.clipboard.writeText(copyText).then(function() {
-      alert("Link copied to clipboard: " + copyText);
-    });
+    function copyToClipboard(text) {
+        // Get the text field
+        var copyText = text.replace("\\", "\\\\");
+      
+        navigator.clipboard.writeText(copyText).then(function() {
+          alert("Link copied to clipboard: " + copyText);
+        });
 
-}
+    }
     function search(query){
        var path = require("path")
       const musicbar = document.querySelector(".music");
@@ -57,7 +59,7 @@ function copyToClipboard(text) {
       query = query.toLowerCase();
 
       var fs = require("fs")
-      document.getElementById("musiclist").innerHTML = "<form class='container6' onsubmit='search(" + 'document.getElementById("searchInput").value'+ ")'><input type='text' id='searchInput' placeholder='Search..'></form><br><br><div id='progressbar'></div>";
+      document.getElementById("musiclist").innerHTML = "<form class='container7' onsubmit='search(" + 'document.getElementById("searchInputt").value'+ ")'><input type='text' id='searchInputt' placeholder='Search..'></form><br><br><div id='progressbar'></div>";
       let data = fs.readFileSync(path.join(__dirname, '.', '../db/db.json'),{encoding:'utf8', flag:'r'})
       let tracks = JSON.parse('['+data+']')
       let tryy = tracks
@@ -70,7 +72,7 @@ function copyToClipboard(text) {
             $("#musiclist")
               .append(`<li id="${b}"><div class="box" ><div class="icon"><img src="${tryy[i].image}"/></div>
               <div class="content">
-            <svg viewBox="0 0 448 448" onclick="remove(this)" cust="${tryy[i].url}">
+            <svg viewBox="0 0 448 448" onclick="add(this)" cust="${tryy[i].url}">
             <path d="m408 184h-136c-4.417969 0-8-3.582031-8-8v-136c0-22.089844-17.910156-40-40-40s-40 17.910156-40 40v136c0 4.417969-3.582031 8-8 8h-136c-22.089844 0-40 17.910156-40 40s17.910156 40 40 40h136c4.417969 0 8 3.582031 8 8v136c0 22.089844 17.910156 40 40 40s40-17.910156 40-40v-136c0-4.417969 3.582031-8 8-8h136c22.089844 0 40-17.910156 40-40s-17.910156-40-40-40zm0 0"/>
             </svg>
             <h3>${tryy[i].name.slice(0,15)}...</h3>
@@ -87,7 +89,6 @@ function copyToClipboard(text) {
       }
 
     function switchMusic(e) {
-        
       if (currentList !== undefined) {
         removePlayedBackground();
         music.pause();
@@ -98,7 +99,7 @@ function copyToClipboard(text) {
         music.src = tracks[currentTrack].url;
         music.load();
         play();
-    }
+      }
   
   function addChoosedBackground() {
     currentList = document.getElementById(currentTrack);
@@ -124,7 +125,7 @@ function copyToClipboard(text) {
     addChoosedBackground();
     document.getElementById("end-time").innerHTML = tracks[currentTrack].duration;
   }
-
+  
   function pause() {
     musicIsPlaying = false;
     music.pause();
@@ -133,6 +134,7 @@ function copyToClipboard(text) {
     playBtn.classList.remove("hidden");
   }
   function prePlay() {
+    
     removePlayedBackground();
     music.pause();
   
@@ -223,6 +225,53 @@ function copyToClipboard(text) {
     }  
   </script>
 
+  <script type="text/javascript">
+    var lst = []
+
+    function createPlaylist(e){
+      var fs = require("fs")
+      const JSONdb = require('simple-json-db');
+      const db = new JSONdb(path.join(__dirname, '.', '../db/playlists.json'));
+      db.set(e, lst);
+      //fs.writeFileSync("db/playlists.json", JSON.stringify(pl, null, 2), 'utf8')
+      alert("Playlist created")
+    }
+    function add(e){
+      function lineOf(text, substring){
+        var line = 0, matchedChars = 0;
+
+        for (var i = 0; i < text.length; i++) {
+          text[i] === substring[matchedChars] ? matchedChars++ : matchedChars = 0;
+
+          if (matchedChars === substring.length){
+              return line;                  
+          }
+          if (text[i] === '\n'){
+              line++;
+          }
+        }
+
+        return  -1;
+      }
+
+      var element = document.querySelector('[cust="' + e.getAttribute("cust").replace(/\\/g,"\\\\") + '"]');
+      element.innerHTML = ''
+      var path = require("path")
+      var fs = require("fs")
+      var pth = e.getAttribute("cust").replace(/\\/g,"\\\\")
+      
+      var str = fs.readFileSync(path.join(__dirname, '.', '../db/db.json'),{encoding:'utf8', flag:'r'})
+      var pthh = str.split(/\r?\n/)[lineOf(str, pth)]
+      if(pthh.substring(0, 1) == ","){
+        pthh =  pthh.slice(1);
+      }else{
+        pthh = pthh
+      }
+      lst.push(pthh)
+      //console.log(pthh)
+    }
+  </script>
+</head>
 
 <style>
   .navWrapper {
@@ -231,8 +280,8 @@ function copyToClipboard(text) {
   }
 
 </style>
-</head>
-<body>
+
+
 
  <div class="nav">
       <div class="trigger"><span></span></div>
@@ -276,17 +325,15 @@ const sidebarToggle = () => {
 trigger.addEventListener('click', sidebarToggle);
 
 </script>
-  <page-home>
 
-    <div class="col-md-12 po" style="width:120%">
-      <div class="section-banner" style="width:130%">
+      <form class='container6' onsubmit="createPlaylist(document.getElementById('searchInput').value)">
+          <input type="text" id="searchInput" placeholder="Name">
+          <br>
+          <button id="searchBtn" type="submit">Create</button>
+        </form>
+        <br><br><br><br><br><br>
 
-        <p class="section-banner-title">Music <br> For <br> Everyone</p>
 
-      </div>
-    </div>
-
-  </page-home>
   <style>
     .post__card-2 {
       padding-right: .8rem;
@@ -335,14 +382,16 @@ trigger.addEventListener('click', sidebarToggle);
   <div class="col-md-6 mt-3 fl po" style="width: 100%;">
 
     <ul id="musiclist" style="width: 100%; height: 100%; overflow: auto">
-      <form class='container6' onsubmit="search(document.getElementById('searchInput').value)">
-          <input type="text" id="searchInput" placeholder="Search..">
-        </form>
-      <br><br>
-      <div id="progressbar"></div></ul>
+
+    <form class='container7' onsubmit="search(document.getElementById('searchInputt').value)">
+      <input type="text" id="searchInputt" placeholder="Search..">
+    </form>
+    <br>
+    <div id="progressbar"></div></ul>
 
   </div>
 
+  <br><br><br><br>
 
 
 
@@ -389,10 +438,11 @@ trigger.addEventListener('click', sidebarToggle);
 </div>
 
 <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.1.0/css/all.css" integrity="sha384-lKuwvrZot6UHsBSfcMvOkWwlCMgc0TaWr+30HWe3a4ltaBwTZhyTEggF5tJv8tbt" crossorigin="anonymous"> 
+
  <audio id="music">
 </audio>
 
 </div>
 
-</body>
+
 </html>

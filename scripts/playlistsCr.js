@@ -28,6 +28,7 @@ window.onload = function() {
   let currentTrack = 0;
   let currentList;
   
+  var path = require("path")
   let data = fs.readFileSync(path.join(__dirname, '.', '../db/db.json'),{encoding:'utf8', flag:'r'})
 
   let tracks = JSON.parse('['+data+']')
@@ -51,14 +52,14 @@ window.onload = function() {
     for (let i = 0; i < tracks.length; i++) {
       $("#musiclist")
         .append(`<li id="${i}"><div class="box" ><div class="icon"><img src="${tracks[i].image}"/></div>
-  <div class="content">
-       <svg viewBox="0 0 448 448" onclick="remove(this)" cust="${tracks[i].url}">
+      <div class="content">
+       <svg viewBox="0 0 448 448" onclick="add(this)" cust="${tracks[i].url}">
        
        <path d="m408 184h-136c-4.417969 0-8-3.582031-8-8v-136c0-22.089844-17.910156-40-40-40s-40 17.910156-40 40v136c0 4.417969-3.582031 8-8 8h-136c-22.089844 0-40 17.910156-40 40s17.910156 40 40 40h136c4.417969 0 8 3.582031 8 8v136c0 22.089844 17.910156 40 40 40s40-17.910156 40-40v-136c0-4.417969 3.582031-8 8-8h136c22.089844 0 40-17.910156 40-40s-17.910156-40-40-40zm0 0"/>
        </svg>
       <h3>${tracks[i].name.slice(0,15)}...</h3>
       <h6>${tracks[i].artist}</h6><div></div>
-     </li>`);
+      <i class="far fa-copy" onclick="copyToClipboard('${tracks[i].url.replace(/\\/g, "/")}')"></i></li>`);
     }
   
     for (let musicIndex = 0; musicIndex < musicList.length; musicIndex++) {
@@ -91,7 +92,7 @@ window.onload = function() {
     img.src = tracks[currentTrack].image;
     imgs.src = tracks[currentTrack].image;
     artis.innerHTML = tracks[currentTrack].artist;
-    musicname.innerHTML = tracks[currentTrack].name.slice(0,35) + "...";
+    musicname.innerHTML = tracks[currentTrack].name.slice(0,25);
     rote.classList.add("rote");
     playBtn.classList.add("hidden");
     pauseBtn.classList.remove("hidden");
@@ -103,12 +104,12 @@ window.onload = function() {
   }
   
   function pause() {
-    musicIsPlaying = false;
-    music.pause();
     rote.classList.remove("rote");
     pauseBtn.classList.add("hidden");
     playBtn.classList.remove("hidden");
-
+  
+    musicIsPlaying = false;
+    music.pause();
   }
   
   function prePlay() {

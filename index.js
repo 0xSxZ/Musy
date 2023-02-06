@@ -1,8 +1,11 @@
-const { app, BrowserWindow } = require('electron')
-var fs = require('fs');
 var patdzadh = require("path")
 var mm = require('musicmetadata');
 const recursive = require("recursive-readdir");
+const { app, BrowserWindow, ipcMain, nativeImage, NativeImage } = require('electron')
+const fs = require('fs')
+const https = require('https')
+
+
 function countFileLines(filePath){
   return new Promise((resolve, reject) => {
   let lineCount = 0;
@@ -32,7 +35,7 @@ function addToDb(path){
         "name":path.split(/\\/)[path.split(/\\/).length-1],
         "artist":"unknown",
         "track":countFileLines(require("path").join(__dirname, 'db/db.json')),
-        "image":"https://www.pngitem.com/pimgs/m/150-1503945_transparent-user-png-default-user-image-png-png.png",
+        "image":"https://i.pinimg.com/originals/14/82/97/1482975da7275050a3a8406f90c4610d.jpg",
         "url":path,
       }
       
@@ -68,7 +71,7 @@ function addToDb(path){
         delete metadata["title"];
         metadata["track"] = countFileLines(require("path").join(__dirname, 'db/db.json'));
         metadata["url"] = path 
-        metadata["image"] = "https://www.pngitem.com/pimgs/m/150-1503945_transparent-user-png-default-user-image-png-png.png";
+        metadata["image"] = "https://i.pinimg.com/originals/14/82/97/1482975da7275050a3a8406f90c4610d.jpg";
         
 
         var complete = fs.readFileSync(require("path").join(__dirname, 'db/db.json'),{encoding:'utf8', flag:'r'});
@@ -91,7 +94,6 @@ var resJSON = [];
 const urss = require("os").userInfo().username;
 const Paths = [`C:/Users/${urss}/Desktop/`, `C:/Users/${urss}/Documents/`,`C:/Users/${urss}/Pictures/`, `C:/Users/${urss}/Music/`, `C:/Users/${urss}/3D Objects/`, `C:/Users/${urss}/Videos/`, `C:/Users/${urss}/Downloads/`]
 const MusicFileExt = ["mp3","wav", "m4a", "ogg"]
-
 
 
 
@@ -143,10 +145,10 @@ const createWindow = async() => {
     width: 700,
     height: 850,
     frame:false,
-    resizable: false,
+    resizable:false,
     webPreferences: {
       nodeIntegration: true,
-      contextIsolation: false
+      contextIsolation: false,
     }
 
   })
@@ -158,7 +160,18 @@ app.whenReady().then(() => {
   createWindow()
 })
 
+
+
 app.on('window-all-closed', () => {
-  if (process.platform !== 'darwin') app.quit()
+  if (process.platform !== 'darwin') {
+    app.quit()
+  }
 })
+
+app.on('activate', () => {
+  if (BrowserWindow.getAllWindows().length === 0) {
+    createWindow()
+  }
+})
+
 

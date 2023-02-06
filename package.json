@@ -1,29 +1,61 @@
 {
 
   "main": "index.js",
+
   "name": "musy",
-  "version": "0.0.1",
+
+  "version": "0.0.2",
+
   "license": "MIT",
+
   "description": "Discord : Yazid#7469",
+
   "author": "0xSxZ",
+
   "scripts": {
+
     "postinstall": "electron-builder install-app-deps",
+
     "start": "electron .",
+
     "pack": "electron-builder --dir",
+
     "dist": "electron-builder"
+
   },
+
   "devDependencies": {
+
     "electron": "^22.2.0",
+
     "electron-builder": "^23.6.0"
+
   },
+
   "dependencies": {
+
     "musicmetadata": "^2.0.5",
+
     "recursive-readdir": "^2.2.3",
+
     "simple-json-db": "^2.0.0",
+
     "youtube-search-api": "^1.1.1"
+
   },
+
   "build": {
-    "files": "!db/db.json",
-    "asar": false
+    "asar": false,
+    "mac": {
+      "icon": "./public/icons/m.icns",   
+      "category": "public.app-category.utilities"
+    },
+    "win": {
+      "icon": "./public/icons/m.png" 
+    }
+
+
   }
+
 }
+
