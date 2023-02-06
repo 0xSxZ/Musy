@@ -14,17 +14,6 @@
 <!-- Getting Started -->
 ## 	:toolbox: Getting Started
 
-<!-- Prerequisites -->
-### :bangbang: Prerequisite 
-
-This project uses NodeJS/Electron
-
-```sudo apt install nodejs```
-
-Windows : Install on <a href="https://nodejs.org">nodejs.org</a>
-<!-- Installation -->
-### :gear: Fast Installation
-<a href="https://github.com/0xSxZ/Musy/releases">Releases</a>
 <!-- Features -->
 ## :dart: Features
 
@@ -35,16 +24,12 @@ Windows : Install on <a href="https://nodejs.org">nodejs.org</a>
 
 🚫 = Will never be added
 
-
-
-🔜 Playlists
-
+ 
 🔜 Youtube search
-  
-  
+
 💚 Delete track
   
-💚 Playlists (0.0.2)
+💚 Playlists
   
 💚 Computer files (mp3, wav, ogg, ...)
 
