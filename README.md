@@ -36,7 +36,7 @@
 <!-- Contact -->
 ## :handshake: Contact
 
-How to reach me Discord : Yazid#7469 
+Discord : Yazid#7469 
 
 Email :
  sxzuu@yahoo.com 
