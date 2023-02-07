@@ -30,8 +30,6 @@
   
 💚 Computer files (mp3, wav, ogg, ...)
 
-💚 Ayo i made this cool looking app
-
 
 <!-- Contact -->
 ## :handshake: Contact
