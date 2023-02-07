@@ -1,4 +1,4 @@
-<div>
+<div align="center">
 
 
   <h1>Musy</h1>
@@ -6,7 +6,7 @@
     A concurrent app to Windows Groove
   </p>
   <img src="https://i.imgur.com/NViAqds.png">
-
+</div>
 
 <!-- About the Project -->
 ## :warning: THIS PROJECT IS NOT FINISHED
