@@ -2,7 +2,7 @@
 
   "main": "index.js",
 
-  "name": "musy",
+  "name": "Musy",
 
   "version": "0.0.2",
 
@@ -34,6 +34,8 @@
 
   "dependencies": {
 
+    "jsmediatags": "^3.9.7",
+
     "musicmetadata": "^2.0.5",
 
     "recursive-readdir": "^2.2.3",
@@ -45,15 +47,22 @@
   },
 
   "build": {
-    "asar": false,
-    "mac": {
-      "icon": "./public/icons/m.icns",   
-      "category": "public.app-category.utilities"
-    },
-    "win": {
-      "icon": "./public/icons/m.png" 
-    }
 
+    "asar": false,
+
+    "mac": {
+
+      "icon": "./public/icons/m.icns",
+
+      "category": "public.app-category.utilities"
+
+    },
+
+    "win": {
+
+      "icon": "./public/icons/m.png"
+
+    }
 
   }
 
