@@ -11,9 +11,6 @@
 <!-- About the Project -->
 ## :warning: THIS PROJECT IS NOT FINISHED
 
-<!-- Getting Started -->
-## 	:toolbox: Getting Started
-
 <!-- Features -->
 ## :dart: Features
 
