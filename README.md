@@ -8,8 +8,6 @@
   <img src="https://i.imgur.com/NViAqds.png">
 </div>
 
-<!-- About the Project -->
-## :warning: THIS PROJECT IS NOT FINISHED
 
 <!-- Features -->
 ## :dart: Features
