@@ -7,7 +7,6 @@ const https = require('https')
 var resJSON = [];
 const urss = require("os").userInfo().username;
 const Paths = [`C:/Users/${urss}/Desktop/`, `C:/Users/${urss}/Documents/`,`C:/Users/${urss}/Pictures/`, `C:/Users/${urss}/Music/`, `C:/Users/${urss}/3D Objects/`, `C:/Users/${urss}/Videos/`, `C:/Users/${urss}/Downloads/`]
-const MusicFileExt = ["mp3","wav", "m4a", "ogg"]
 const dbPath = require("path").join(__dirname, 'db/db.json');
 
 
@@ -55,8 +54,6 @@ function addToDb(path) {
                 "image": "https://i.pinimg.com/originals/14/82/97/1482975da7275050a3a8406f90c4610d.jpg",
                 "url": path,
             }
-
-
 
             if (fs.readFileSync(dbPath, {
                     encoding: 'utf8',
