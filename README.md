@@ -2,9 +2,9 @@
 
 
   <h1>Musy</h1>
-  <p>
+  <h3>
     A concurrent app to Windows Groove
-  </p>
+  </h3>
   <img src="https://i.imgur.com/NViAqds.png">
 </div>
 
