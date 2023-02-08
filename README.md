@@ -5,7 +5,7 @@
   <h3>
     A concurrent app to Windows Groove
   </h3>
-  <a href="https://github.com/0xSxZ/Musy/raw/main/git/Musy.mp4">Youtube video</a>
+  <a href="https://github.com/0xSxZ/Musy/raw/main/git/Musy.mp4">Video</a>
 
 </div>
 
