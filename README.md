@@ -36,6 +36,5 @@
 ## :handshake: Contact
 
 Discord : Yazid#7469 
-
-Email :
- sxzuu@yahoo.com 
+Discord server : https://discord.gg/CYcKzAX8xD
+Email : sxzuu@yahoo.com 
