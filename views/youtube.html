@@ -1,0 +1,310 @@
+
+<html lang="en"><head>
+  <script>if (typeof module === 'object') {window.module = module; module = undefined;}</script>
+  
+  <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+  <meta charset="UTF-8">
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Musy</title>
+  <link rel="stylesheet" href="../css/index.css">
+  <link rel="stylesheet" media="screen" href="../css/boot.css">
+  <script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js'></script>
+
+  <meta name="apple-mobile-web-app-title" content="CodePen">
+  <script>
+  if (document.location.search.match(/type=embed/gi)) {
+    window.parent.postMessage("resize", "*");
+  }
+  </script>
+
+<script type="text/javascript">
+
+  async function search(q){
+    var youtubeThumbnail = require('youtube-thumbnail');
+    const play2 = require('play-dl');
+    document.getElementById("musiclist").innerHTML = "<form class='container6' onsubmit='search(" + 'document.getElementById("searchInput").value'+ ")'><input type='text' id='searchInput' placeholder='Search..'></form><br><br><div id='progressbar'></div>";
+    var tracks = []
+    var fs = require('fs');
+    const musicbar = document.querySelector(".music");
+    const musicname = document.querySelector(".musicname");
+    const artis = document.querySelector(".artist");
+    const img = document.querySelector(".cover");
+    const imgs = document.querySelector(".shadow");
+    const rote = document.querySelector(".cover");
+    const playBtn = document.querySelector(".play-btn");
+    const pauseBtn = document.querySelector(".pause-btn");
+    const preBtn = document.querySelector(".prev-btn");
+    const nextBtn = document.querySelector(".next-btn");
+    const music = document.getElementById("music");
+    const musicList = document.getElementsByTagName("li");
+    const progressBar = document.getElementById("progress-bar");
+    let currentTrack = 0;
+    let currentList;
+
+    function sleep(ms) {
+      return new Promise(resolve => setTimeout(resolve, ms));
+    }
+    var SearchResults = await play2.search(q, {limit: 5})
+    var b = 0;
+
+    for (var prop in SearchResults) {
+      try{
+        let stream = await play2.stream("https://www.youtube.com/watch?v="+ SearchResults[prop]["id"])
+        var thumbnail = SearchResults[prop]["thumbnails"][0]["url"]
+        tracks.push({"artist":SearchResults[prop]["title"], duration:0, name:SearchResults[prop]["title"], track:{}, url:stream["url"], thumbnail})
+        $("#musiclist").append(`<li id="${b}"><div class="box" ><div class="icon"><img src="${thumbnail}"/></div>
+          <div class="content">
+            <path d="m408 184h-136c-4.417969 0-8-3.582031-8-8v-136c0-22.089844-17.910156-40-40-40s-40 17.910156-40 40v136c0 4.417969-3.582031 8-8 8h-136c-22.089844 0-40 17.910156-40 40s17.910156 40 40 40h136c4.417969 0 8 3.582031 8 8v136c0 22.089844 17.910156 40 40 40s40-17.910156 40-40v-136c0-4.417969 3.582031-8 8-8h136c22.089844 0 40-17.910156 40-40s-17.910156-40-40-40zm0 0"/>
+            </svg>
+            <h3>${SearchResults[prop]["title"].slice(0,25)}...</h3>
+            <h6>${SearchResults[prop]["channel"]["name"]}</h6>
+            <div>
+          </div>
+          </li>`)
+        b++
+      }catch{
+
+      }
+    }
+    for (let musicIndex = 0; musicIndex < musicList.length; musicIndex++) {
+      musicList[musicIndex].addEventListener("click", switchMusic, false);
+    }
+ 
+
+  function switchMusic(e) {
+
+    if (currentList !== undefined) {
+            removePlayedBackground();
+            music.pause();
+        }
+        currentTrack = this.id;
+        music.src = tracks[currentTrack].url;
+        music.load();
+        play();
+    }
+
+    function addChoosedBackground() {
+        currentList = document.getElementById(currentTrack);
+        currentList.classList.add("song-play-now");
+    }
+
+    function removePlayedBackground() {
+        currentList.classList.remove("song-play-now");
+    }
+    async function play() {
+        await sleep(1000)
+        img.src = tracks[currentTrack].image;
+        imgs.src = tracks[currentTrack].image;
+        artis.innerHTML = tracks[currentTrack].artist;
+        musicname.innerHTML = tracks[currentTrack].name.slice(0, 35) + "...";
+        rote.classList.add("rote");
+        playBtn.classList.add("hidden");
+        pauseBtn.classList.remove("hidden");
+        musicbar.classList.add("openn");
+        music.play();
+        musicIsPlaying = true;
+        addChoosedBackground();
+        document.getElementById("end-time").innerHTML = tracks[currentTrack].duration;
+    }
+
+    function pause() {
+        musicIsPlaying = false;
+        music.pause();
+        rote.classList.remove("rote");
+        pauseBtn.classList.add("hidden");
+        playBtn.classList.remove("hidden");
+
+    }
+
+    function prePlay() {
+        removePlayedBackground();
+        music.pause();
+
+        if (currentTrack > 0) {
+            currentTrack--;
+        } else {
+            currentTrack = tracks.length - 1;
+        }
+
+        music.src = tracks[currentTrack].url;
+        music.load();
+        play();
+    }
+
+    function nextPlay() {
+        removePlayedBackground();
+        music.pause();
+
+        if (currentTrack < tracks.length - 1) {
+            currentTrack++;
+        } else {
+            currentTrack = 0;
+        }
+
+        music.src = tracks[currentTrack].url;
+        music.load();
+        play();
+    }
+
+    function calculateTotalValue(length) {
+        let minutes = Math.floor(length / 60),
+            seconds_int = length - minutes * 60,
+            seconds_str = seconds_int.toString(),
+            seconds = seconds_str.substr(0, 2),
+            time = minutes + ":" + seconds;
+
+        return time;
+    }
+
+    function formatTime() {
+        let timeline = document.getElementById("start-time");
+        let s = parseInt(music.currentTime % 60);
+        let m = parseInt((music.currentTime / 60) % 60);
+        if (s < 10) {
+            timeline.innerHTML = m + ":0" + s;
+        } else {
+            timeline.innerHTML = m + ":" + s;
+        }
+    }
+
+    function updateProgress() {
+        let current = music.currentTime;
+        let percent = (current / music.duration) * 100;
+        progressBar.setAttribute("value", percent);
+    }
+
+    playBtn.addEventListener("click", play, false);
+    pauseBtn.addEventListener("click", pause, false);
+    preBtn.addEventListener("click", prePlay, false);
+    nextBtn.addEventListener("click", nextPlay, false);
+    music.addEventListener("ended", nextPlay, false);
+
+    // 歌曲已播放時間
+    music.addEventListener("timeupdate", formatTime, false);
+    music.addEventListener("timeupdate", updateProgress, false);
+  }
+
+
+</script>
+</head>
+ <div class="nav">
+      <div class="trigger"><span></span></div>
+    </div>
+
+    <div class="sidebar">
+      <div class="content">
+        <a class="logo">
+          <img src="https://github.com/0xSxZ/Musy/raw/main/img/m.png" / style="width: 20%;">
+        </a>
+        <ul class="menu">
+          <li><a style="color: white; text-decoration: none;" href="index.html">HOME</a></li>
+          <li><a style="color: white; text-decoration: none;" href="youtube.html">YOUTUBE</a></li>
+          <li><a style="color: white; text-decoration: none;" href="playlists.html">PLAYLISTS</a></li>
+          <li><a style="color: white; text-decoration: none;" href="createPlaylist.html">CREATE A PLAYLIST</a></li>
+        </ul>
+      </div>
+    </div>
+
+  <div class="container" style="box-shadow: inset 0px -10px 15px 1px #0000002e;">
+  <div class="head">
+    <nav>      
+      <div class="navWrapper">
+        <a href="" id="logo"><img src="https://github.com/0xSxZ/Musy/raw/main/img/logo.png" / style="width: 20%;"></a>
+      </div>
+    </nav>
+  </div>
+
+<script type="text/javascript">
+const trigger = document.querySelector('.trigger');
+const sidebar = document.querySelector('.sidebar');
+const sidebarToggle = () => {
+  trigger.classList.toggle('active');
+  sidebar.classList.toggle('show');
+};
+trigger.addEventListener('click', sidebarToggle);
+</script>
+
+
+
+<page-home>
+
+    <div class="col-md-12 po" style="width:120%">
+      <div class="section-banner" style="width:130%">
+
+        <p class="section-banner-title">Music <br> For <br> Everyone</p>
+
+      </div>
+    </div>
+
+</page-home>
+
+<div class="col-md-6 mt-3 fl po" style="width: 100%;">
+
+  <ul id="musiclist" style="width: 100%; height: 100%; overflow: auto">
+
+    <ul id="musiclist" style="width: 100%; height: 100%; overflow: auto">
+      <form class='container6' onsubmit="search(document.getElementById('searchInput').value)">
+          <input type="text" id="searchInput" placeholder="Search...">
+        </form>
+      <br><br>
+      <div id="progressbar"></div></ul>
+
+  </ul>
+
+</div>
+
+<br><br><br><br>
+
+
+
+<div class="music">
+  <div class="container">
+    <div id="abl" class="album">
+      <div class="circle"></div>
+      <img class="cover" />
+      <img class="shadow"></img>
+    </div>
+    <div class="musicname"></div>
+    <div class="artist"></div>
+
+    <div class="controll-panel" style="left: 40%;">
+      <div class="center">
+        <span class="prev-btn controll-btn">
+          <i class="fas fa-step-backward" style="color: white;"></i>
+        </span>
+      </div>
+      <div class="center">
+        <span class="play-btn controll-btn">
+          <i class="far fa-play-circle" style="color: white;"></i>
+        </span>
+        <span class="pause-btn controll-btn hidden">
+          <i class="far fa-pause-circle" style="color: white;"></i>
+        </span>
+      </div>
+      <div class="center">
+        <span class="next-btn controll-btn">
+          <i class="fas fa-step-forward" style="color: white;"></i>
+        </span>
+      </div>
+    </div>
+    <div class="progress-panel">
+      <progress id="progress-bar" value="0" max="100"></progress>
+      <div class="time">
+        <label id="start-time">00:00</label>
+        <label>/</label>
+        <label id="end-time">00:00</label>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.1.0/css/all.css" integrity="sha384-lKuwvrZot6UHsBSfcMvOkWwlCMgc0TaWr+30HWe3a4ltaBwTZhyTEggF5tJv8tbt" crossorigin="anonymous"> 
+  <audio id="music">
+</audio>
+
+</div>
+
+
+</html>

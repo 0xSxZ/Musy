@@ -40,9 +40,8 @@
          
          <path d="m408 184h-136c-4.417969 0-8-3.582031-8-8v-136c0-22.089844-17.910156-40-40-40s-40 17.910156-40 40v136c0 4.417969-3.582031 8-8 8h-136c-22.089844 0-40 17.910156-40 40s17.910156 40 40 40h136c4.417969 0 8 3.582031 8 8v136c0 22.089844 17.910156 40 40 40s40-17.910156 40-40v-136c0-4.417969 3.582031-8 8-8h136c22.089844 0 40-17.910156 40-40s-17.910156-40-40-40zm0 0"/>
          </svg>
-        <h3>${tracks[i].name.slice(0,15)}...</h3>
-        <h6>${tracks[i].artist}</h6><div></div>
-        <i class="far fa-copy" onclick="copyToClipboard('${tracks[i].url.replace(/\\/g, "/")}')"></i></li>`);
+        <h3>${tracks[i].name.slice(0,25)}...</h3>
+        <h6>${tracks[i].artist}</h6><div></div></li>`);
         b++
       }
 
@@ -202,6 +201,7 @@
         </a>
         <ul class="menu">
           <li><a style="color: white; text-decoration: none;" href="index.html">HOME</a></li>
+          <li><a style="color: white; text-decoration: none;" href="youtube.html">YOUTUBE</a></li>
           <li><a style="color: white; text-decoration: none;" href="playlists.html">PLAYLISTS</a></li>
           <li><a style="color: white; text-decoration: none;" href="createPlaylist.html">CREATE A PLAYLIST</a></li>
         </ul>
