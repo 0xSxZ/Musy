@@ -5,10 +5,7 @@
   <h3>
     A concurrent app to Windows Groove
   </h3>
-  <video controls width="250">
-
-      <source src="https://github.com/0xSxZ/Musy/raw/main/git/Musy.mp4" type="video/mp4">
-  </video>
+  <a href="https://github.com/0xSxZ/Musy/raw/main/git/Musy.mp4">Youtube video</a>
 
 </div>
 
