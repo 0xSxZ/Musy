@@ -3,9 +3,8 @@
 
   <h1>Musy</h1>
   <h3>
-    A concurrent app to Windows Groove
+    A concurrent app to Windows Groove (<a href="https://github.com/0xSxZ/Musy/raw/main/git/Musy.mp4">Video</a>)
   </h3>
-  <a href="https://github.com/0xSxZ/Musy/raw/main/git/Musy.mp4">Video</a>
   <img src="https://i.imgur.com/NViAqds.png" style="width:50%">
 </div>
 
