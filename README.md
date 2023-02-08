@@ -21,7 +21,9 @@
 
 -------------------------
 
-🔜 Youtube search
+🔜 Soundcloud integration
+
+💚 Youtube search (& player)
 
 💚 Delete track
   
