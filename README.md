@@ -5,7 +5,7 @@
   <h3>
     A concurrent app to Windows Groove
   </h3>
-  <img src="git/Musy.mp4">
+  <img src="https://github.com/0xSxZ/Musy/raw/main/git/Musy.mp4">
 </div>
 
 
