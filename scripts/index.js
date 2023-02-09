@@ -29,7 +29,7 @@ window.onload = function() {
     const progressBar = document.getElementById("progress-bar");
     let currentTrack = 0;
     let currentList;
-
+    var path = require("path")
     let data = fs.readFileSync(path.join(__dirname, '.', '../db/db.json'), {
         encoding: 'utf8',
         flag: 'r'

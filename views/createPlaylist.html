@@ -227,14 +227,11 @@
 
   <script type="text/javascript">
     var lst = []
-
     function createPlaylist(e){
       var fs = require("fs")
       const JSONdb = require('simple-json-db');
       const db = new JSONdb(path.join(__dirname, '.', '../db/playlists.json'));
       db.set(e, lst);
-      //fs.writeFileSync("db/playlists.json", JSON.stringify(pl, null, 2), 'utf8')
-      alert("Playlist created")
     }
     function add(e){
       function lineOf(text, substring){
@@ -294,6 +291,7 @@
         </a>
         <ul class="menu">
           <li><a style="color: white; text-decoration: none;" href="index.html">HOME</a></li>
+          <li><a style="color: white; text-decoration: none;font-family: Montserrat, Arial, sans-serif; font-weight: bold;" href="localFiles.html">LOCAL FILES</a></li>
           <li><a style="color: white; text-decoration: none;" href="youtube.html">YOUTUBE</a></li>
           <li><a style="color: white; text-decoration: none;" href="playlists.html">PLAYLISTS</a></li>
           <li><a style="color: white; text-decoration: none;" href="createPlaylist.html">CREATE A PLAYLIST</a></li>
@@ -332,7 +330,7 @@ trigger.addEventListener('click', sidebarToggle);
           <br>
           <button id="searchBtn" type="submit">Create</button>
         </form>
-        <br><br><br><br><br><br>
+        <br><br><br><br>
 
 
   <style>

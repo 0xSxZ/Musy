@@ -13,7 +13,6 @@
   
   <script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js'></script>
   
-  <script src="../scripts/index.js"></script>
   <meta name="apple-mobile-web-app-title" content="CodePen">
 
   <script>
@@ -21,84 +20,122 @@
     window.parent.postMessage("resize", "*");
   }
 </script>
-
-  <script>
-    var path = require("path")
-    function sleep(ms) {
-    return new Promise(resolve => setTimeout(resolve, ms));
-}
-
-
-function copyToClipboard(text) {
-    // Get the text field
-    var copyText = text.replace("\\", "\\\\");
+<script>
   
-    navigator.clipboard.writeText(copyText).then(function() {
-      alert("Link copied to clipboard: " + copyText);
-    });
+function jsTransitionScale(elm, width, height, speed) {
+    var FPS = 60;
 
+    var original_width = elm.offsetWidth,
+        original_height = elm.offsetHeight;
+
+    var width_range = width - original_width,
+        height_range = height - original_height;
+
+    var timeout = speed / FPS,
+        width_change = width_range / FPS,
+        height_change = height_range / FPS;
+
+    var finish = new Date().getTime() + speed;
+
+    var begin = setInterval(function () {
+        original_width += width_change;
+        original_height += height_change;
+
+        elm.style.width = original_width + "px";
+        elm.style.height = original_height + "px";
+
+        if (new Date().getTime() >= finish) {
+            elm.style.width = width;
+            elm.style.height = height;
+            clearInterval(begin);
+        }
+    }, timeout);
 }
-    function search(query){
-       var path = require("path")
-      const musicbar = document.querySelector(".music");
-      const musicname = document.querySelector(".musicname");
-      const artis = document.querySelector(".artist");
-      const img = document.querySelector(".cover");
-      const imgs = document.querySelector(".shadow");
-      const rote = document.querySelector(".cover");
-      const playBtn = document.querySelector(".play-btn");
-      const pauseBtn = document.querySelector(".pause-btn");
-      const preBtn = document.querySelector(".prev-btn");
-      const nextBtn = document.querySelector(".next-btn");
-      const music = document.getElementById("music");
-      const progressBar = document.getElementById("progress-bar");
-      let currentTrack = 0;
-      let currentList;
-      query = query.toLowerCase();
 
-      var fs = require("fs")
-      document.getElementById("musiclist").innerHTML = "<form class='container6' onsubmit='search(" + 'document.getElementById("searchInput").value'+ ")'><input type='text' id='searchInput' placeholder='Search..'></form><br><br><div id='progressbar'></div>";
-      let data = fs.readFileSync(path.join(__dirname, '.', '../db/db.json'),{encoding:'utf8', flag:'r'})
-      let tracks = JSON.parse('['+data+']')
-      let tryy = tracks
-      var b=0;
-      for (let i = 0; i < tryy.length; i++) {
-          if(i == 0){
-            tracks = []
-          }
-          if(tryy[i]["name"].toLowerCase().includes(query) || tryy[i]["artist"].toString().toLowerCase().includes(query)){
-            $("#musiclist")
-              .append(`<li id="${b}"><div class="box" ><div class="icon"><img src="${tryy[i].image}"/></div>
-              <div class="content">
-            <svg viewBox="0 0 448 448" onclick="remove(this)" cust="${tryy[i].url}">
-            <path d="m408 184h-136c-4.417969 0-8-3.582031-8-8v-136c0-22.089844-17.910156-40-40-40s-40 17.910156-40 40v136c0 4.417969-3.582031 8-8 8h-136c-22.089844 0-40 17.910156-40 40s17.910156 40 40 40h136c4.417969 0 8 3.582031 8 8v136c0 22.089844 17.910156 40 40 40s40-17.910156 40-40v-136c0-4.417969 3.582031-8 8-8h136c22.089844 0 40-17.910156 40-40s-17.910156-40-40-40zm0 0"/>
-            </svg>
-            <h3>${tryy[i].name.slice(0,25)}...</h3>
-            <h6>${tryy[i].artist}</h6><div></div>
-            </li>`);
-            //delete tryy["id"]
-            tracks.push(tryy[i])
-            b++
-        }else{}
-      }
-      const musicList = document.getElementsByTagName("li");
+
+
+</script>
+  <script type="text/javascript">
+
+    function showPL(e){
+    function sleep(ms) {
+      return new Promise(resolve => setTimeout(resolve, ms));
+  }
+    var path = require("path")
+    const musicbar = document.querySelector(".music");
+    const musicname = document.querySelector(".musicname");
+    const artis = document.querySelector(".artist");
+    const img = document.querySelector(".cover");
+    const imgs = document.querySelector(".shadow");
+    const rote = document.querySelector(".cover");
+    const playBtn = document.querySelector(".play-btn");
+    const pauseBtn = document.querySelector(".pause-btn");
+    const preBtn = document.querySelector(".prev-btn");
+    const nextBtn = document.querySelector(".next-btn");
+    const music = document.getElementById("music");
+    const musicList = document.getElementsByTagName("li");
+    let currentTrack = 0;
+    let currentList;
+    const progressBar = document.getElementById("progress-bar");
+    const https = require('https');
+    var tracks = []
+    https.get('https://shorto-crypto.fr/API/playlists.json', (resp) => {
+      let data = '';
+
+      // Un morceau de réponse est reçu
+      resp.on('data', (chunk) => {
+        data += chunk;
+      });
+
+      // La réponse complète à été reçue. On affiche le résultat.
+      resp.on('end', () => {
+        console.log(JSON.parse(data));
+
+
+        var data2 = JSON.parse(data)
+        let key = e.id
+        var JSONdb = require('simple-json-db');
+        var db = new JSONdb(path.join(__dirname, '.', '../db/playlists.json'));
+        var tracks2 = data2[key]["songs"]
+        var b = 0
+        document.getElementById("musiclist").innerHTML = "";
+        document.getElementById("StylesContainer").style.width = "25%";
+        for (let i = 0; i < tracks2.length; i++) {
+          tracks.push(tracks2[i])
+          $("#musiclist")
+            .append(`<li id="${b}"><div class="box" ><div class="icon"><img src="${tracks2[i].thumbnail}"/></div>
+      <div class="content">
+           <svg viewBox="0 0 448 448" onclick="remove(this)" cust="${tracks2[i].audio}">
+           
+           <path d="m408 184h-136c-4.417969 0-8-3.582031-8-8v-136c0-22.089844-17.910156-40-40-40s-40 17.910156-40 40v136c0 4.417969-3.582031 8-8 8h-136c-22.089844 0-40 17.910156-40 40s17.910156 40 40 40h136c4.417969 0 8 3.582031 8 8v136c0 22.089844 17.910156 40 40 40s40-17.910156 40-40v-136c0-4.417969 3.582031-8 8-8h136c22.089844 0 40-17.910156 40-40s-17.910156-40-40-40zm0 0"/>
+           </svg>
+          <h4>${tracks2[i].name.slice(0,35)}...</h4>
+          <h6>${tracks2[i].artist}</h6><div></div></li>`);
+          b++
+        }
       for (let musicIndex = 0; musicIndex < musicList.length; musicIndex++) {
         musicList[musicIndex].addEventListener("click", switchMusic, false);
       }
+    })
 
-    function switchMusic(e) {
-        
-      if (currentList !== undefined) {
-        removePlayedBackground();
-        music.pause();
+  }).on("error", (err) => {
+  console.log("Error: " + err.message);
+});
+
+
+      for (let musicIndex = 0; musicIndex < musicList.length; musicIndex++) {
+        musicList[musicIndex].addEventListener("click", switchMusic, false);
       }
-      
-        currentTrack = this.id;
-        console.log(this)
-        music.src = tracks[currentTrack].url;
-        music.load();
-        play();
+  function switchMusic(e) {
+    if (currentList !== undefined) {
+      removePlayedBackground();
+      music.pause();
     }
+    currentTrack = this.id;
+    music.src = tracks[currentTrack].audio;
+    music.load();
+    play();
+  }
   
   function addChoosedBackground() {
     currentList = document.getElementById(currentTrack);
@@ -108,7 +145,6 @@ function copyToClipboard(text) {
   function removePlayedBackground() {
     currentList.classList.remove("song-play-now");
   }
-  
   async function play() {
     await sleep(1000)
     img.src = tracks[currentTrack].image;
@@ -124,7 +160,7 @@ function copyToClipboard(text) {
     addChoosedBackground();
     document.getElementById("end-time").innerHTML = tracks[currentTrack].duration;
   }
-
+  
   function pause() {
     musicIsPlaying = false;
     music.pause();
@@ -132,6 +168,7 @@ function copyToClipboard(text) {
     pauseBtn.classList.add("hidden");
     playBtn.classList.remove("hidden");
   }
+  
   function prePlay() {
     removePlayedBackground();
     music.pause();
@@ -142,7 +179,7 @@ function copyToClipboard(text) {
       currentTrack = tracks.length - 1;
     }
   
-    music.src = tracks[currentTrack].url;
+    music.src = tracks[currentTrack].audio;
     music.load();
     play();
   }
@@ -157,7 +194,7 @@ function copyToClipboard(text) {
       currentTrack = 0;
     }
   
-    music.src = tracks[currentTrack].url;
+    music.src = tracks[currentTrack].audio;
     music.load();
     play();
   }
@@ -200,37 +237,7 @@ function copyToClipboard(text) {
   music.addEventListener("timeupdate", updateProgress, false);
   
     }
-
-    
-
-    
-  
-    function remove(e){
-      var path = require("path")
-      var fs = require("fs")
-      var pth = e.getAttribute("cust").replace(/\\/g,"\\\\")
-      var str = fs.readFileSync(path.join(__dirname, '.', '../db/db.json'),{encoding:'utf8', flag:'r'})
-      var sux = str.split('\n').filter(function(line){ 
-        return line.indexOf( pth) == -1;
-      }).join('\n')
-      if(sux.substring(0, 1) == ","){
-        fs.writeFileSync(path.join(__dirname, '.', '../db/db.json'), sux.slice(1));
-      }else{
-        fs.writeFileSync(path.join(__dirname, '.', '../db/db.json'), sux);
-      }
-      fs.writeFileSync(path.join(__dirname, '.', '../db/removed.json'), pth);
-      search("")
-    }  
   </script>
-
-
-<style>
-  .navWrapper {
-  -webkit-user-select: none;
-  -webkit-app-region: drag;
-  }
-
-</style>
 </head>
 <body>
 
@@ -244,14 +251,14 @@ function copyToClipboard(text) {
           <img src="https://github.com/0xSxZ/Musy/raw/main/img/m.png" / style="width: 20%;">
         </a>
         <ul class="menu">
-          <li><a style="color: white; text-decoration: none;" href="index.html">HOME</a></li>
-          <li><a style="color: white; text-decoration: none;" href="youtube.html">YOUTUBE</a></li>
-          <li><a style="color: white; text-decoration: none;" href="playlists.html">PLAYLISTS</a></li>
-          <li><a style="color: white; text-decoration: none;" href="createPlaylist.html">CREATE A PLAYLIST</a></li>
+          <li><a style="color: white; text-decoration: none;font-family: Montserrat, Arial, sans-serif; font-weight: bold;" href="index.html">HOME</a></li>
+          <li><a style="color: white; text-decoration: none;font-family: Montserrat, Arial, sans-serif; font-weight: bold;" href="localFiles.html">LOCAL FILES</a></li>
+          <li><a style="color: white; text-decoration: none;font-family: Montserrat, Arial, sans-serif;font-weight: bold;" href="youtube.html">YOUTUBE</a></li>
+          <li><a style="color: white; text-decoration: none;font-family: Montserrat, Arial, sans-serif;font-weight: bold;" href="playlists.html">PLAYLISTS</a></li>
+          <li><a style="color: white; text-decoration: none;font-family: Montserrat, Arial, sans-serif;font-weight: bold;" href="createPlaylist.html">CREATE A PLAYLIST</a></li>
         </ul>
       </div>
     </div>
-
   <div class="container" style="box-shadow: inset 0px -10px 15px 1px #0000002e;">
   <div class="head">
     <nav>
@@ -260,23 +267,21 @@ function copyToClipboard(text) {
       </div>
     </nav>
   </div>
+  <script type="text/javascript">
+    // Variables
+  const trigger = document.querySelector('.trigger');
+  const sidebar = document.querySelector('.sidebar');
 
+  // Functions
+  const sidebarToggle = () => {
+    trigger.classList.toggle('active');
+    sidebar.classList.toggle('show');
+  };
 
-<script type="text/javascript">
-  // Variables
-const trigger = document.querySelector('.trigger');
-const sidebar = document.querySelector('.sidebar');
+  // Event Listeners
+  trigger.addEventListener('click', sidebarToggle);
 
-// Functions
-const sidebarToggle = () => {
-  trigger.classList.toggle('active');
-  sidebar.classList.toggle('show');
-};
-
-// Event Listeners
-trigger.addEventListener('click', sidebarToggle);
-
-</script>
+  </script>
   <page-home>
 
     <div class="col-md-12 po" style="width:120%">
@@ -333,17 +338,51 @@ trigger.addEventListener('click', sidebarToggle);
   </style>
 
 
+
+  <div id="StylesContainer" style="margin: 12px; padding: 12px;padding-left: 5%;padding-right: 5%;border: none; outline: none; white-space: none; display: inline-block;">
+
+  </div>
+
+<script type="text/javascript">
+  var https = require('https');
+
+  https.get('https://shorto-crypto.fr/API/playlists.json', (resp) => {
+    let data = '';
+
+    resp.on('data', (chunk) => {
+      data += chunk;
+    });
+
+    resp.on('end', () => {
+      var data2 = JSON.parse(data)
+      
+      for (var prop in data2){
+        var icon = data2[prop]["icon"]
+        $("#StylesContainer").append(`<img src="${icon}" style="
+            margin: 10px;
+            width: 30%; 
+            background-size: 100% auto;
+            border-radius: 12px;
+            " id=${prop} onclick="showPL(this)" class="ii"></img>`)
+              }
+            });
+
+  }).on("error", (err) => {
+    console.log("Error: " + err.message);
+  });
+
+</script>
+
+
   <div class="col-md-6 mt-3 fl po" style="width: 100%;">
 
     <ul id="musiclist" style="width: 100%; height: 100%; overflow: auto">
-      <form class='container6' onsubmit="search(document.getElementById('searchInput').value)">
-          <input type="text" id="searchInput" placeholder="Search..">
-        </form>
-      <br><br>
+
       <div id="progressbar"></div></ul>
 
   </div>
 
+  <br><br><br><br>
 
 
 
