@@ -10,7 +10,7 @@
   
   <link rel="stylesheet" href="../css/index.css">
   <link rel="stylesheet" media="screen" href="../css/boot.css">
-  
+  <script type="text/javascript" src="../scripts/AddToSuggest.js"></script>
   <script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js'></script>
   
   <meta name="apple-mobile-web-app-title" content="CodePen">
@@ -57,7 +57,7 @@ function jsTransitionScale(elm, width, height, speed) {
 </script>
   <script type="text/javascript">
 
-    function showPL(e){
+    async function showPL(e){
     function sleep(ms) {
       return new Promise(resolve => setTimeout(resolve, ms));
   }
@@ -88,7 +88,7 @@ function jsTransitionScale(elm, width, height, speed) {
       });
 
       // La réponse complète à été reçue. On affiche le résultat.
-      resp.on('end', () => {
+      resp.on('end', async() => {
         console.log(JSON.parse(data));
 
 
@@ -101,26 +101,32 @@ function jsTransitionScale(elm, width, height, speed) {
         document.getElementById("musiclist").innerHTML = "";
         document.getElementById("StylesContainer").style.width = "25%";
         for (let i = 0; i < tracks2.length; i++) {
-          tracks.push(tracks2[i])
+          const play2 = require('play-dl');
+          let stream = await play2.stream(tracks2[i]["audio"]);
+          delete tracks2[i]["audio"];
+          tracks2[i]["audio"] = stream["url"];
+          tracks.push(tracks2[i]);
+          console.log(tracks2[i])
           $("#musiclist")
-            .append(`<li id="${b}"><div class="box" ><div class="icon"><img src="${tracks2[i].thumbnail}"/></div>
+            .append(`<li id="${i}"><div class="box" ><div class="icon"><img src="${tracks2[i]["thumbnail"]}"/></div>
       <div class="content">
-           <svg viewBox="0 0 448 448" onclick="remove(this)" cust="${tracks2[i].audio}">
+           <svg viewBox="0 0 448 448" onclick="remove(this)" cust="${tracks2[i]["audio"]}">
            
            <path d="m408 184h-136c-4.417969 0-8-3.582031-8-8v-136c0-22.089844-17.910156-40-40-40s-40 17.910156-40 40v136c0 4.417969-3.582031 8-8 8h-136c-22.089844 0-40 17.910156-40 40s17.910156 40 40 40h136c4.417969 0 8 3.582031 8 8v136c0 22.089844 17.910156 40 40 40s40-17.910156 40-40v-136c0-4.417969 3.582031-8 8-8h136c22.089844 0 40-17.910156 40-40s-17.910156-40-40-40zm0 0"/>
            </svg>
-          <h4>${tracks2[i].name.slice(0,35)}...</h4>
-          <h6>${tracks2[i].artist}</h6><div></div></li>`);
-          b++
+          <h4>${tracks2[i]["name"]}...</h4>
+          <h6>${tracks2[i]["artist"]}</h6><div></div></li>`);
+          //b++
+        for (let musicIndex = 0; musicIndex < musicList.length; musicIndex++) {
+          musicList[musicIndex].addEventListener("click", switchMusic, false);
         }
-      for (let musicIndex = 0; musicIndex < musicList.length; musicIndex++) {
-        musicList[musicIndex].addEventListener("click", switchMusic, false);
-      }
-    })
+        }
 
-  }).on("error", (err) => {
-  console.log("Error: " + err.message);
-});
+      })
+
+    }).on("error", (err) => {
+    console.log("Error: " + err.message);
+  });
 
 
       for (let musicIndex = 0; musicIndex < musicList.length; musicIndex++) {
@@ -132,7 +138,11 @@ function jsTransitionScale(elm, width, height, speed) {
       music.pause();
     }
     currentTrack = this.id;
-    music.src = tracks[currentTrack].audio;
+    if (typeof tracks[currentTrack].audio !== 'undefined') {
+      music.src = tracks[currentTrack].audio;
+    }else{
+      music.src = tracks[currentTrack].url;
+    }
     music.load();
     play();
   }
@@ -159,6 +169,7 @@ function jsTransitionScale(elm, width, height, speed) {
     musicIsPlaying = true;
     addChoosedBackground();
     document.getElementById("end-time").innerHTML = tracks[currentTrack].duration;
+    addToSuggest(tracks[currentTrack])
   }
   
   function pause() {
@@ -256,6 +267,7 @@ function jsTransitionScale(elm, width, height, speed) {
           <li><a style="color: white; text-decoration: none;font-family: Montserrat, Arial, sans-serif;font-weight: bold;" href="youtube.html">YOUTUBE</a></li>
           <li><a style="color: white; text-decoration: none;font-family: Montserrat, Arial, sans-serif;font-weight: bold;" href="playlists.html">PLAYLISTS</a></li>
           <li><a style="color: white; text-decoration: none;font-family: Montserrat, Arial, sans-serif;font-weight: bold;" href="createPlaylist.html">CREATE A PLAYLIST</a></li>
+          <li><a style="color: white; text-decoration: none;font-family: Montserrat, Arial, sans-serif;font-weight: bold;" href="sugg.html">DISCOVER</a></li>
         </ul>
       </div>
     </div>
@@ -374,15 +386,15 @@ function jsTransitionScale(elm, width, height, speed) {
 </script>
 
 
-  <div class="col-md-6 mt-3 fl po" style="width: 100%;">
+  <div class="col-md-6 mt-3 fl" style="width: 100%; overflow: auto;">
 
     <ul id="musiclist" style="width: 100%; height: 100%; overflow: auto">
 
-      <div id="progressbar"></div></ul>
+      <div id="progressbar"></div>
+    </ul>
+
 
   </div>
-
-  <br><br><br><br>
 
 
 
@@ -429,7 +441,7 @@ function jsTransitionScale(elm, width, height, speed) {
 </div>
 
 <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.1.0/css/all.css" integrity="sha384-lKuwvrZot6UHsBSfcMvOkWwlCMgc0TaWr+30HWe3a4ltaBwTZhyTEggF5tJv8tbt" crossorigin="anonymous"> 
- <audio id="music">
+<audio id="music">
 </audio>
 
 </div>

@@ -1,7 +1,7 @@
 
 <html lang="en"><head>
   <script>if (typeof module === 'object') {window.module = module; module = undefined;}</script>
-  
+  <script type="text/javascript" src="../scripts/AddToSuggest.js"></script>
   <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
   <meta charset="UTF-8">
   <meta charset="utf-8">
@@ -45,7 +45,7 @@
     function sleep(ms) {
       return new Promise(resolve => setTimeout(resolve, ms));
     }
-    var SearchResults = await play2.search(q, {limit: 5})
+    var SearchResults = await play2.search(q, {limit: 7})
     var b = 0;
 
     for (var prop in SearchResults) {
@@ -106,6 +106,7 @@
         musicIsPlaying = true;
         addChoosedBackground();
         document.getElementById("end-time").innerHTML = tracks[currentTrack].duration;
+        addToSuggest(tracks[currentTrack])
     }
 
     function pause() {
@@ -203,6 +204,7 @@
           <li><a style="color: white; text-decoration: none;" href="youtube.html">YOUTUBE</a></li>
           <li><a style="color: white; text-decoration: none;" href="playlists.html">PLAYLISTS</a></li>
           <li><a style="color: white; text-decoration: none;" href="createPlaylist.html">CREATE A PLAYLIST</a></li>
+          <li><a style="color: white; text-decoration: none;font-family: Montserrat, Arial, sans-serif;font-weight: bold;" href="sugg.html">DISCOVER</a></li>
         </ul>
       </div>
     </div>

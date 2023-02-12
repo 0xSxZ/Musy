@@ -1,0 +1,420 @@
+
+<html lang="en"><head>
+  <script>if (typeof module === 'object') {window.module = module; module = undefined;}</script>
+  <meta charset="UTF-8">
+
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <title>Musy</title>
+  
+  <link rel="stylesheet" href="../css/index.css">
+  <link rel="stylesheet" media="screen" href="../css/boot.css">
+  <script type="text/javascript" src="../scripts/AddToSuggest.js"></script>
+  <script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js'></script>
+  
+  <script type="text/javascript" src="../scripts/AddToSuggest.js"></script>
+  <meta name="apple-mobile-web-app-title" content="CodePen">
+
+  <script>
+  if (document.location.search.match(/type=embed/gi)) {
+    window.parent.postMessage("resize", "*");
+  }
+</script>
+<script>
+  
+function jsTransitionScale(elm, width, height, speed) {
+    var FPS = 60;
+
+    var original_width = elm.offsetWidth,
+        original_height = elm.offsetHeight;
+
+    var width_range = width - original_width,
+        height_range = height - original_height;
+
+    var timeout = speed / FPS,
+        width_change = width_range / FPS,
+        height_change = height_range / FPS;
+
+    var finish = new Date().getTime() + speed;
+
+    var begin = setInterval(function () {
+        original_width += width_change;
+        original_height += height_change;
+
+        elm.style.width = original_width + "px";
+        elm.style.height = original_height + "px";
+
+        if (new Date().getTime() >= finish) {
+            elm.style.width = width;
+            elm.style.height = height;
+            clearInterval(begin);
+        }
+    }, timeout);
+}
+
+
+
+</script>
+</head>
+<body>
+
+ <div class="nav">
+      <div class="trigger"><span></span></div>
+    </div>
+
+    <div class="sidebar">
+      <div class="content">
+        <a class="logo">
+          <img src="https://github.com/0xSxZ/Musy/raw/main/img/m.png" / style="width: 20%;">
+        </a>
+        <ul class="menu">
+          <li><a style="color: white; text-decoration: none;font-family: Montserrat, Arial, sans-serif; font-weight: bold;" href="index.html">HOME</a></li>
+          <li><a style="color: white; text-decoration: none;font-family: Montserrat, Arial, sans-serif; font-weight: bold;" href="localFiles.html">LOCAL FILES</a></li>
+          <li><a style="color: white; text-decoration: none;font-family: Montserrat, Arial, sans-serif;font-weight: bold;" href="youtube.html">YOUTUBE</a></li>
+          <li><a style="color: white; text-decoration: none;font-family: Montserrat, Arial, sans-serif;font-weight: bold;" href="playlists.html">PLAYLISTS</a></li>
+          <li><a style="color: white; text-decoration: none;font-family: Montserrat, Arial, sans-serif;font-weight: bold;" href="createPlaylist.html">CREATE A PLAYLIST</a></li>
+          <li><a style="color: white; text-decoration: none;font-family: Montserrat, Arial, sans-serif;font-weight: bold;" href="sugg.html">DISCOVER</a></li>
+        </ul>
+      </div>
+    </div>
+  <div class="container" style="box-shadow: inset 0px -10px 15px 1px #0000002e;">
+  <div class="head">
+    <nav>
+      <div class="navWrapper">
+        <a href="" id="logo"><img src="https://github.com/0xSxZ/Musy/raw/main/img/logo.png" / style="width: 20%;"></a>
+      </div>
+    </nav>
+  </div>
+  <script type="text/javascript">
+    // Variables
+  const trigger = document.querySelector('.trigger');
+  const sidebar = document.querySelector('.sidebar');
+
+  // Functions
+  const sidebarToggle = () => {
+    trigger.classList.toggle('active');
+    sidebar.classList.toggle('show');
+  };
+
+  // Event Listeners
+  trigger.addEventListener('click', sidebarToggle);
+
+  </script>
+  <page-home>
+
+    <div class="col-md-12 po" style="width:120%">
+      <div class="section-banner" style="width:130%">
+
+        <p class="section-banner-title">Music <br> For <br> Everyone</p>
+
+      </div>
+    </div>
+
+  </page-home>
+  <style>
+    .post__card-2 {
+      padding-right: .8rem;
+      padding-top: .5rem;
+      padding-bottom: .5rem;
+      max-width: 277.5px;
+      width: 100%;
+      float: left;
+    }
+
+    .post__card_-2 {
+      overflow: hidden;
+      border-radius: 0rem;
+      background-color: #fff;
+    }
+
+    .post__card__image-2 {
+      height: 11rem;
+      border-radius: 10px;
+      background-size: cover;
+      background-position: center;
+      box-shadow: 0 20px 25px -5px rgba(0, 0, 0, .1), 0 10px 10px -5px rgba(0, 0, 0, .04);
+    }
+
+    .post__card_meta-2 {
+      padding: 0.5em;
+    }
+
+    .post__card_title-2 {
+      font-size: 1.5rem;
+      font-weight: 700;
+      margin: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+    }
+
+    .post__card_alttitle-2 {
+      color: #4a5568;
+      margin: 0;
+      line-height: 1.5;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+      font-size: 1.125rem
+    }
+  </style>
+
+
+
+  <div id="StylesContainer" style="margin: 12px; padding: 12px;padding-left: 5%;padding-right: 5%;border: none; outline: none; white-space: none; display: inline-block;">
+
+  </div>
+
+
+
+  <div class="col-md-6 mt-3 fl" style="width: 100%; overflow: auto;">
+      <h3 style="text-align: center; color:white;">Suggestions</h3>
+
+    <ul id="suggestionList" style="width: 100%; height: 100%; overflow: auto;">
+      <div id="progressbar"></div>
+    </ul>
+
+  </div>
+
+
+
+<div class="music">
+  <div class="container">
+    <div id="abl" class="album">
+      <div class="circle"></div>
+      <img class="cover" />
+      <img class="shadow"></img>
+    </div>
+    <div class="musicname"></div>
+    <div class="artist"></div>
+
+    <div class="controll-panel" style="left: 40%;">
+      <div class="center">
+        <span class="prev-btn controll-btn">
+          <i class="fas fa-step-backward" style="color: white;"></i>
+        </span>
+      </div>
+      <div class="center">
+        <span class="play-btn controll-btn">
+          <i class="far fa-play-circle" style="color: white;"></i>
+        </span>
+        <span class="pause-btn controll-btn hidden">
+          <i class="far fa-pause-circle" style="color: white;"></i>
+        </span>
+      </div>
+      <div class="center">
+        <span class="next-btn controll-btn">
+          <i class="fas fa-step-forward" style="color: white;"></i>
+        </span>
+      </div>
+    </div>
+    <div class="progress-panel">
+      <progress id="progress-bar" value="0" max="100"></progress>
+      <div class="time">
+        <label id="start-time">00:00</label>
+        <label>/</label>
+        <label id="end-time">00:00</label>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.1.0/css/all.css" integrity="sha384-lKuwvrZot6UHsBSfcMvOkWwlCMgc0TaWr+30HWe3a4ltaBwTZhyTEggF5tJv8tbt" crossorigin="anonymous"> 
+<audio id="music">
+</audio>
+
+</div>
+
+  <script>
+      function sleep(ms) {
+        return new Promise(resolve => setTimeout(resolve, ms));
+    }
+      var path = require("path")
+      const musicbar = document.querySelector(".music");
+      const musicname = document.querySelector(".musicname");
+      const artis = document.querySelector(".artist");
+      const img = document.querySelector(".cover");
+      const imgs = document.querySelector(".shadow");
+      const rote = document.querySelector(".cover");
+      const playBtn = document.querySelector(".play-btn");
+      const pauseBtn = document.querySelector(".pause-btn");
+      const preBtn = document.querySelector(".prev-btn");
+      const nextBtn = document.querySelector(".next-btn");
+      const music = document.getElementById("music");
+      const musicList = document.getElementsByTagName("li");
+      let currentTrack = 0;
+      let currentList;
+      const progressBar = document.getElementById("progress-bar");
+      var tracks =[] 
+      var fs = require("fs")
+      var path = require("path")
+      var ListenData = fs.readFileSync( path.join(__dirname, '.', '../db/mostListened.json'),{encoding:'utf8', flag:'r'}).split(/\r?\n/);
+      const shuffled = ListenData.sort(() => 0.5 - Math.random());
+      let selected = shuffled.slice(0, shuffled.length - ~~(shuffled.length/3));
+      var b = 0;
+      for(var i=0; i<selected.length;i++){
+        try{
+
+          tracks.push(JSON.parse(selected[i]))
+          selected2 = JSON.parse(selected[i])
+          if (typeof selected2.audio !== 'undefined') {
+            $("#suggestionList")
+              .append(`<li id="${b}"><div class="box" ><div class="icon"><img src="${selected2.thumbnail}"/></div>
+                <div class="content">
+                    <svg viewBox="0 0 448 448" onclick="remove(this)" cust="${selected2.audio}">
+                       
+                      <path d="m408 184h-136c-4.417969 0-8-3.582031-8-8v-136c0-22.089844-17.910156-40-40-40s-40 17.910156-40 40v136c0 4.417969-3.582031 8-8 8h-136c-22.089844 0-40 17.910156-40 40s17.910156 40 40 40h136c4.417969 0 8 3.582031 8 8v136c0 22.089844 17.910156 40 40 40s40-17.910156 40-40v-136c0-4.417969 3.582031-8 8-8h136c22.089844 0 40-17.910156 40-40s-17.910156-40-40-40zm0 0"/>
+                    </svg>
+                  <h4>${selected2.name}...</h4>
+                <h6>${selected2.artist}</h6><div></div></li>`);
+              b++
+
+          }else{
+            $("#suggestionList")
+              .append(`<li id="${b}"><div class="box" ><div class="icon"><img src="${selected2.thumbnail}"/></div>
+                <div class="content">
+                    <svg viewBox="0 0 448 448" onclick="remove(this)" cust="${selected2.url}">
+                       
+                      <path d="m408 184h-136c-4.417969 0-8-3.582031-8-8v-136c0-22.089844-17.910156-40-40-40s-40 17.910156-40 40v136c0 4.417969-3.582031 8-8 8h-136c-22.089844 0-40 17.910156-40 40s17.910156 40 40 40h136c4.417969 0 8 3.582031 8 8v136c0 22.089844 17.910156 40 40 40s40-17.910156 40-40v-136c0-4.417969 3.582031-8 8-8h136c22.089844 0 40-17.910156 40-40s-17.910156-40-40-40zm0 0"/>
+                    </svg>
+                  <h4>${selected2.name}...</h4>
+                <h6>${selected2.artist}</h6><div></div></li>`);
+            b++
+
+          }
+        }catch{}
+
+      }
+
+
+      for (let musicIndex = 0; musicIndex < musicList.length; musicIndex++) {
+        musicList[musicIndex].addEventListener("click", switchMusic, false);
+      }
+  function switchMusic(e) {
+
+    if (currentList !== undefined) {
+      removePlayedBackground();
+      music.pause();
+    }
+    currentTrack = this.id;
+    if (typeof tracks[currentTrack].audio !== 'undefined') {
+      music.src = tracks[currentTrack].audio;
+    }else{
+      music.src = tracks[currentTrack].url;
+    }
+
+    music.load();
+    play();
+  }
+  
+  function addChoosedBackground() {
+    currentList = document.getElementById(currentTrack);
+    currentList.classList.add("song-play-now");
+  }
+  
+  function removePlayedBackground() {
+    currentList.classList.remove("song-play-now");
+  }
+  async function play() {
+    await sleep(1000)
+    img.src = tracks[currentTrack].image;
+    imgs.src = tracks[currentTrack].image;
+    artis.innerHTML = tracks[currentTrack].artist;
+    musicname.innerHTML = tracks[currentTrack].name.slice(0,35) + "...";
+    rote.classList.add("rote");
+    playBtn.classList.add("hidden");
+    pauseBtn.classList.remove("hidden");
+    musicbar.classList.add("openn");
+    music.play();
+    musicIsPlaying = true;
+    addChoosedBackground();
+    document.getElementById("end-time").innerHTML = tracks[currentTrack].duration;
+    addToSuggest(tracks[currentTrack])
+  }
+  
+  function pause() {
+    musicIsPlaying = false;
+    music.pause();
+    rote.classList.remove("rote");
+    pauseBtn.classList.add("hidden");
+    playBtn.classList.remove("hidden");
+  }
+  
+  function prePlay() {
+    removePlayedBackground();
+    music.pause();
+  
+    if (currentTrack > 0) {
+      currentTrack--;
+    } else {
+      currentTrack = tracks.length - 1;
+    }
+  
+    if (typeof tracks[currentTrack].audio !== 'undefined') {
+      music.src = tracks[currentTrack].audio;
+    }else{
+      music.src = tracks[currentTrack].url;
+    }
+
+    music.load();
+    play();
+  }
+  
+  function nextPlay() {
+    removePlayedBackground();
+    music.pause();
+  
+    if (currentTrack < tracks.length - 1) {
+      currentTrack++;
+    } else {
+      currentTrack = 0;
+    }
+  
+    if (typeof tracks[currentTrack].audio !== 'undefined') {
+      music.src = tracks[currentTrack].audio;
+    }else{
+      music.src = tracks[currentTrack].url;
+    }
+    music.load();
+    play();
+  }
+  
+  function calculateTotalValue(length) {
+    let minutes = Math.floor(length / 60),
+      seconds_int = length - minutes * 60,
+      seconds_str = seconds_int.toString(),
+      seconds = seconds_str.substr(0, 2),
+      time = minutes + ":" + seconds;
+  
+    return time;
+  }
+  
+  function formatTime() {
+    let timeline = document.getElementById("start-time");
+    let s = parseInt(music.currentTime % 60);
+    let m = parseInt((music.currentTime / 60) % 60);
+    if (s < 10) {
+      timeline.innerHTML = m + ":0" + s;
+    } else {
+      timeline.innerHTML = m + ":" + s;
+    }
+  }
+  
+  function updateProgress() {
+    let current = music.currentTime;
+    let percent = (current / music.duration) * 100;
+    progressBar.setAttribute("value", percent);
+  }
+  
+  playBtn.addEventListener("click", play, false);
+  pauseBtn.addEventListener("click", pause, false);
+  preBtn.addEventListener("click", prePlay, false);
+  nextBtn.addEventListener("click", nextPlay, false);
+  music.addEventListener("ended", nextPlay, false);
+  
+  // 歌曲已播放時間
+  music.addEventListener("timeupdate", formatTime, false);
+  music.addEventListener("timeupdate", updateProgress, false);
+
+  </script>
+
+</body>
+</html>

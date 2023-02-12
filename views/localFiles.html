@@ -13,6 +13,7 @@
   
   <script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js'></script>
   
+  <script type="text/javascript" src="../scripts/AddToSuggest.js"></script>
   <script src="../scripts/index.js"></script>
   <meta name="apple-mobile-web-app-title" content="CodePen">
 
@@ -95,7 +96,11 @@ function copyToClipboard(text) {
       
         currentTrack = this.id;
         console.log(this)
-        music.src = tracks[currentTrack].url;
+        if (typeof tracks[currentTrack].audio !== 'undefined') {
+          music.src = tracks[currentTrack].audio;
+        }else{
+          music.src = tracks[currentTrack].url;
+        }
         music.load();
         play();
     }
@@ -123,6 +128,7 @@ function copyToClipboard(text) {
     musicIsPlaying = true;
     addChoosedBackground();
     document.getElementById("end-time").innerHTML = tracks[currentTrack].duration;
+    addToSuggest(tracks[currentTrack])
   }
 
   function pause() {
@@ -141,8 +147,11 @@ function copyToClipboard(text) {
     } else {
       currentTrack = tracks.length - 1;
     }
-  
-    music.src = tracks[currentTrack].url;
+    if (typeof tracks[currentTrack].audio !== 'undefined') {
+      music.src = tracks[currentTrack].audio;
+    }else{
+      music.src = tracks[currentTrack].url;
+    }
     music.load();
     play();
   }
@@ -156,8 +165,11 @@ function copyToClipboard(text) {
     } else {
       currentTrack = 0;
     }
-  
-    music.src = tracks[currentTrack].url;
+    if (typeof tracks[currentTrack].audio !== 'undefined') {
+      music.src = tracks[currentTrack].audio;
+    }else{
+      music.src = tracks[currentTrack].url;
+    }
     music.load();
     play();
   }
@@ -249,6 +261,7 @@ function copyToClipboard(text) {
           <li><a style="color: white; text-decoration: none;font-family: Montserrat, Arial, sans-serif;font-weight: bold;" href="youtube.html">YOUTUBE</a></li>
           <li><a style="color: white; text-decoration: none;font-family: Montserrat, Arial, sans-serif;font-weight: bold;" href="playlists.html">PLAYLISTS</a></li>
           <li><a style="color: white; text-decoration: none;font-family: Montserrat, Arial, sans-serif;font-weight: bold;" href="createPlaylist.html">CREATE A PLAYLIST</a></li>
+          <li><a style="color: white; text-decoration: none;font-family: Montserrat, Arial, sans-serif;font-weight: bold;" href="sugg.html">DISCOVER</a></li>
         </ul>
       </div>
     </div>

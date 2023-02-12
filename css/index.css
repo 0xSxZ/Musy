@@ -3,6 +3,10 @@
 @import url("https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;800&display=swap");
 @import url("https://fonts.googleapis.com/css2?family=Urbanist:wght@500&display=swap");
 
+*{
+	color: white;
+}
+
 .navWrapper {
 	-webkit-user-select: none;
   -webkit-app-region: drag;
@@ -629,6 +633,15 @@ main{
 	margin: 0px;
 	line-height: 27px;
 }
+.box div.content h4 {
+	font-size: 22px;
+	font-family: -apple-system,BlinkMacSystemFont,&quot;Segoe UI&quot;,Roboto,&quot;Helvetica Neue&quot;,Arial,&quot;Noto Sans&quot;,sans-serif,&quot;Apple Color Emoji&quot;,&quot;Segoe UI Emoji&quot;,&quot;Segoe UI Symbol&quot;,&quot;Noto Color Emoji&quot;;
+	font-weight: bold;
+	color: #e8e8e8;
+	margin: 0px;
+	line-height: 27px;
+}
+
 .box div.content h6 {
 	font-size: 16px;
 	font-weight: 400;

@@ -48,7 +48,11 @@ window.onload = function() {
 
     function init() {
         if (currentTrack === 0) {
-            music.src = tracks[0].url;
+            if (typeof tracks[currentTrack].audio !== 'undefined') {
+              music.src = tracks[currentTrack].audio;
+            }else{
+              music.src = tracks[currentTrack].url;
+            }
             music.load();
         }
 
@@ -77,7 +81,11 @@ window.onload = function() {
             music.pause();
         }
         currentTrack = this.id;
-        music.src = tracks[currentTrack].url;
+        if (typeof tracks[currentTrack].audio !== 'undefined') {
+          music.src = tracks[currentTrack].audio;
+        }else{
+          music.src = tracks[currentTrack].url;
+        }
         music.load();
         play();
     }
@@ -124,8 +132,11 @@ window.onload = function() {
         } else {
             currentTrack = tracks.length - 1;
         }
-
-        music.src = tracks[currentTrack].url;
+        if (typeof tracks[currentTrack].audio !== 'undefined') {
+          music.src = tracks[currentTrack].audio;
+        }else{
+          music.src = tracks[currentTrack].url;
+        }
         music.load();
         play();
     }
@@ -139,8 +150,11 @@ window.onload = function() {
         } else {
             currentTrack = 0;
         }
-
-        music.src = tracks[currentTrack].url;
+        if (typeof tracks[currentTrack].audio !== 'undefined') {
+          music.src = tracks[currentTrack].audio;
+        }else{
+          music.src = tracks[currentTrack].url;
+        }
         music.load();
         play();
     }
